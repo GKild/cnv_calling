@@ -1,0 +1,18 @@
+args <- commandArgs(TRUE)
+library(dplyr)
+library(reshape2)
+library(genoCN)
+mydata <-read.table(args[1], sep = "\t", header = FALSE)
+chroms <- c(1:22, "X")
+
+sapply(chroms, function(x){
+  chr_filtered <-filter(mydata, V1==x)
+  new_col_names <- c("GT", "LRR", "BAF", "IA", "IB", "GC")
+  new_cols <-colsplit(chr_filtered$V10, ":", new_col_names)
+  final <-cbind(chr_filtered, new_cols)
+  dir <- paste0("/",args[2],"/",args[3],"/",args[3],"_",x, ".png")
+  dir.create(dirname(dir),showWarnings=F, recursive=T)
+  png(filename=dir, width = 800, height = 600)
+  plotCN(final$V2, final$LRR, final$BAF, chr2plot = x, LRR.ylim = c(-1,1), main = paste0("BAF & LRR ",args[3],"_", x))
+  dev.off()
+})
