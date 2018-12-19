@@ -1,1 +1,1 @@
-bcftools query -H -f '%ID %CHROM %POS [%LRR]\n' input.vcf.gz > out.txt
+bcftools query -H -f '%ID\t%CHROM\t%POS\t[%BAF]\n' input.vcf.gz > out.txt
