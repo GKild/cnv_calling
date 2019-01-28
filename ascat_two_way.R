@@ -1,4 +1,5 @@
 #tumour lrr, tumour baf, normal lrr, normal baf
+library(ASCAT)
 args <- commandArgs(TRUE)
 ascat.bc_ips_tum <- ascat.loadData(args[1], args[2], args[3], args[4])
 ascat.bc_ips_tum <-ascat.GCcorrect(ascat.bc_ips_tum, args[5])
